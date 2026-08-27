@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BIG BITE RESTO</title>
+
+<style>
+body { margin:0; font-family:Arial; background:#f5f5f5; }
+
+header {
+  background:#111;
+  color:white;
+  padding:15px;
+  text-align:center;
+}
+
+.page { display:none; padding:20px; }
+.active { display:block; }
+
+/* HERO */
+.hero {
+  height:90vh;
+  background:url('https://images.unsplash.com/photo-1550547660-d9450f859349') no-repeat center/cover;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+}
+
+/* BUTTON */
+.btn {
+  padding:12px 25px;
+  background:red;
+  color:white;
+  border:none;
+  cursor:pointer;
+  margin-top:10px;
+  border-radius:5px;
+}
+
+/* BOX */
+.container {
+  width:350px;
+  margin:50px auto;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+input, select, textarea {
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+
+.error {
+  color:red;
+  font-size:13px;
+}
+
+/* THANK YOU */
+.thankyou-box { text-align:center; }
+
+.contact {
+  margin-top:20px;
+  background:#fff3f3;
+  padding:15px;
+  border-radius:8px;
+}
+</style>
+
+<script>
+function showPage(pageId){
+  let pages = document.querySelectorAll('.page');
+  pages.forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+
+/* CREATE ACCOUNT */
+function createAccount(){
+  let email = document.getElementById("signupEmail").value;
+  let pass = document.getElementById("signupPass").value;
+
+  localStorage.setItem("userEmail", email);
+  localStorage.setItem("userPass", pass);
+
+  alert("Account Created!");
+  showPage('login');
+}
+
+/* LOGIN CHECK */
+function login(){
+  let email = document.getElementById("loginEmail").value;
+  let pass = document.getElementById("loginPass").value;
+
+  let savedEmail = localStorage.getItem("userEmail");
+  let savedPass = localStorage.getItem("userPass");
+
+  if(email === savedEmail && pass === savedPass){
+    showPage('apply');
+  } else {
+    document.getElementById("errorMsg").innerText = "Invalid account!";
+  }
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+  <h1>🍔 BIG BITE RESTO</h1>
+</header>
+
+<!-- HOME -->
+<div id="home" class="page active hero">
+  <h1>Eat Big. Work Bigger.</h1>
+  <p>Apply and be part of our team!</p>
+  <button class="btn" onclick="showPage('login')">APPLY NOW</button>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="page">
+  <div class="container">
+    <h2>Login</h2>
+
+    <input id="loginEmail" type="email" placeholder="Enter Gmail">
+    <input id="loginPass" type="password" placeholder="Password">
+
+    <p id="errorMsg" class="error"></p>
+
+    <button onclick="login()">Login</button>
+
+    <p style="font-size:12px;">
+      No account?
+      <a href="#" onclick="showPage('signup')">Create Account</a>
+    </p>
+  </div>
+</div>
+
+<!-- SIGNUP -->
+<div id="signup" class="page">
+  <div class="container">
+    <h2>Create Account</h2>
+
+    <input type="text" placeholder="Full Name">
+    <input id="signupEmail" type="email" placeholder="Gmail">
+    <input id="signupPass" type="password" placeholder="Password">
+
+    <button style="background:green;" onclick="createAccount()">
+      Create Account
+    </button>
+
+    <p style="font-size:12px;">
+      Already have an account?
+      <a href="#" onclick="showPage('login')">Login</a>
+    </p>
+  </div>
+</div>
+
+<!-- APPLY -->
+<div id="apply" class="page">
+  <div class="container">
+    <h2>Job Application</h2>
+
+    <input type="text" placeholder="Full Name">
+    <input type="number" placeholder="Age">
+    <input type="text" placeholder="Address">
+
+    <select>
+      <option>Position Applying For</option>
+      <option>Cook</option>
+      <option>Cashier</option>
+      <option>Service Crew</option>
+    </select>
+
+    <!-- SURVEY -->
+    <h3>Survey</h3>
+
+   
+    <p>How did you hear about us?</p>
+    <select>
+      <option>Facebook</option>
+      <option>Friend</option>
+      <option>Walk-in</option>
+    </select>
+  
+     <label> Do you have experience in food service?</label>
+<select>
+  <option>Yes</option>
+  <option>No</option>
+</select>
+
+<label> What is your strongest skill?</label>
+<input type="text" placeholder="e.g. Cooking, Customer Service">
+
+<label> Are you willing to work flexible hours?</label>
+<select>
+  <option>Yes</option>
+  <option>No</option>
+</select>
+
+<label> Preferred shift</label>
+<select>
+  <option>Morning</option>
+  <option>Afternoon</option>
+  <option>Night</option>
+</select>
+
+<label> Are you comfortable working in a fast-paced environment?</label>
+<select>
+  <option>Yes</option>
+  <option>No</option>
+</select>
+<br>
+ 
+  <input type="text" placeholder="Why do you want to work here?">
+
+    <p>Rate your confidence:</p>
+    <input type="range" min="1" max="10">
+
+
+
+    <button class="btn" onclick="showPage('thankyou')">Submit</button>
+  </div>
+</div>
+
+<!-- THANK YOU -->
+<div id="thankyou" class="page">
+  <div class="container thankyou-box">
+
+    <h1>✅ Thank You!</h1>
+
+    <p>
+      Thank you for your application. We will review your details and contact you soon.
+    </p>
+
+    <div class="contact">
+      <p><b>Contact Us</b></p>
+      <p>📞 0912-345-6789</p>
+      <p>📧 bigbiteresto@email.com</p>
+    </div>
+
+    <button class="btn" onclick="showPage('home')">Back to Home</button>
+
+  </div>
+</div>
+
+</body>
+</html>
