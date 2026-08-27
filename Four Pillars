@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BIG BITE RESTO</title>
+
+
+    <style>
+        /* ================================
+           GENERAL STYLE
+        ================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        header {
+            background: #d62828;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 35px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 15px;
+        }
+
+
+        /* ================================
+           MAIN CONTAINER
+        ================================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+
+        /* ================================
+           MENU SECTION
+        ================================= */
+
+        .menu-section h2,
+        .order-section h2 {
+            margin-bottom: 20px;
+            color: #d62828;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,
+                    minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* ================================
+           FOOD CARD
+        ================================= */
+
+        .food-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.1);
+
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .food-icon {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .food-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .price {
+            color: #d62828;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .add-btn {
+            border: none;
+            background: #d62828;
+            color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #a91f1f;
+        }
+
+
+        /* ================================
+           ORDER SECTION
+        ================================= */
+
+        .order-section {
+            background: white;
+
+            margin-top: 35px;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* ================================
+           ORDER LIST
+        ================================= */
+
+        #orderList {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            background: #f7f7f7;
+
+            border-radius: 10px;
+
+            border-left: 5px solid #d62828;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .item-price {
+            color: #666;
+            margin-top: 5px;
+        }
+
+
+        /* ================================
+           QUANTITY BUTTONS
+        ================================= */
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-controls button {
+            width: 30px;
+            height: 30px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            background: #d62828;
+            color: white;
+
+            font-weight: bold;
+        }
+
+        .quantity-controls button:hover {
+            background: #a91f1f;
+        }
+
+        .quantity {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+
+
+        /* ================================
+           DELETE BUTTON
+        ================================= */
+
+        .delete-btn {
+            background: #333 !important;
+        }
+
+
+        /* ================================
+           TOTAL
+        ================================= */
+
+        .total {
+            display: flex;
+
+            justify-content: space-between;
+
+            border-top: 2px solid #ddd;
+
+            padding-top: 20px;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #d62828;
+        }
+
+
+        /* ================================
+           ACTION BUTTONS
+        ================================= */
+
+        .actions {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .clear-btn,
+        .place-btn {
+            flex: 1;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 16px;
+        }
+
+        .clear-btn {
+            background: #555;
+            color: white;
+        }
+
+        .place-btn {
+            background: #2a9d8f;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: #333;
+        }
+
+        .place-btn:hover {
+            background: #21867a;
+        }
+
+
+        /* ================================
+           EMPTY ORDER
+        ================================= */
+
+        .empty {
+            text-align: center;
+
+            color: #888;
+
+            padding: 30px;
+        }
+
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            .order-item {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         HEADER
+    ================================== -->
+
+    <header>
+
+        <h1>🍔 BIG BITE RESTO</h1>
+
+        <p>
+            Delicious Food • Great Price • Happy Customers
+        </p>
+
+    </header>
+
+
+
+    <div class="container">
+
+
+        <!-- =================================
+             MENU
+        ================================== -->
+
+        <section class="menu-section">
+
+            <h2>🍽️ Our Menu</h2>
+
+
+            <div class="menu" id="menu">
+
+
+                <!-- BURGER -->
+
+                <div class="food-card" data-name="Burger" data-price="99">
+
+                    <div class="food-icon">
+                        🍔
+                    </div>
+
+                    <h3>Classic Burger</h3>
+
+                    <p class="price">
+                        ₱99
+                    </p>
+
+                    <button class="add-btn">
+                        + Add to Order
+                    </button>
+
+                </div>
+
+
+                <!-- PIZZA -->
+
+                <div class="food-card" data-name="Pizza" data-price="149">
+
+                    <div class="food-icon">
+                        🍕
+                    </div>
+
+                    <h3>Cheese Pizza</h3>
+
+                    <p class="price">
+                        ₱149
+                    </p>
+
+                    <button class="add-btn">
+                        + Add to Order
+                    </button>
+
+                </div>
+
+
+                <!-- FRIES -->
+
+                <div class="food-card" data-name="Fries" data-price="59">
+
+                    <div class="food-icon">
+                        🍟
+                    </div>
+
+                    <h3>French Fries</h3>
+
+                    <p class="price">
+                        ₱59
+                    </p>
+
+                    <button class="add-btn">
+                        + Add to Order
+                    </button>
+
+                </div>
+
+
+                <!-- COKE -->
+
+                <div class="food-card" data-name="Coke" data-price="35">
+
+                    <div class="food-icon">
+                        🥤
+                    </div>
+
+                    <h3>Cold Coke</h3>
+
+                    <p class="price">
+                        ₱35
+                    </p>
+
+                    <button class="add-btn">
+                        + Add to Order
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             ORDER
+        ================================== -->
+
+        <section class="order-section">
+
+            <h2>🛒 Your Order</h2>
+
+
+            <ul id="orderList">
+
+                <li class="empty">
+                    Your order is empty.
+                    <br>
+                    Add something delicious! 😋
+                </li>
+
+            </ul>
+
+
+            <!-- TOTAL -->
+
+            <div class="total">
+
+                <span>
+                    TOTAL:
+                </span>
+
+                <span id="total">
+                    ₱0
+                </span>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="actions">
+
+                <button class="clear-btn" id="clearBtn">
+
+                    🗑️ Clear Order
+
+                </button>
+
+
+                <button class="place-btn" id="placeBtn">
+
+                    ✅ Place Order
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <script>
+
+
+        // ==================================================
+        // PILLAR 1 — SELECTION
+        // ==================================================
+        //
+        // We select HTML elements so JavaScript
+        // can interact with them.
+        //
+
+
+        const menu =
+            document.querySelector("#menu");
+
+
+        const orderList =
+            document.querySelector("#orderList");
+
+
+        const totalDisplay =
+            document.querySelector("#total");
+
+
+        const clearBtn =
+            document.querySelector("#clearBtn");
+
+
+        const placeBtn =
+            document.querySelector("#placeBtn");
+
+
+        const foodCards =
+            document.querySelectorAll(".food-card");
+
+
+
+        // Object that stores the customer's order
+
+        let cart = {};
+
+
+
+        // ==================================================
+        // PILLAR 2 — MANIPULATION
+        // ==================================================
+        //
+        // This function changes the webpage.
+        //
+        // It creates HTML elements dynamically,
+        // adds them to the page, and updates values.
+        //
+
+
+        function displayOrder() {
+
+
+            // Clear the current order list
+
+            orderList.innerHTML = "";
+
+
+            // Check if cart is empty
+
+            if (Object.keys(cart).length === 0) {
+
+                const emptyMessage =
+                    document.createElement("li");
+
+
+                emptyMessage.classList.add("empty");
+
+
+                emptyMessage.textContent =
+                    "Your order is empty. Add something delicious! 😋";
+
+
+                orderList.appendChild(
+                    emptyMessage
+                );
+
+
+                totalDisplay.textContent =
+                    "₱0";
+
+
+                return;
+
+            }
+
+
+
+            let total = 0;
+
+
+
+            // Go through every item in cart
+
+            Object.values(cart).forEach(function (item) {
+
+
+                // Calculate item subtotal
+
+                const subtotal =
+                    item.price * item.quantity;
+
+
+                total += subtotal;
+
+
+
+                // Create order item
+
+                const orderItem =
+                    document.createElement("li");
+
+
+                orderItem.classList.add(
+                    "order-item"
+                );
+
+
+                // Store food name
+
+                orderItem.dataset.name =
+                    item.name;
+
+
+
+                // Create item information
+
+                const itemInfo =
+                    document.createElement("div");
+
+
+                itemInfo.classList.add(
+                    "item-info"
+                );
+
+
+                const itemName =
+                    document.createElement("div");
+
+
+                itemName.classList.add(
+                    "item-name"
+                );
+
+
+                itemName.textContent =
+                    item.name;
+
+
+                const itemPrice =
+                    document.createElement("div");
+
+
+                itemPrice.classList.add(
+                    "item-price"
+                );
+
+
+                itemPrice.textContent =
+                    "₱" +
+                    item.price +
+                    " × " +
+                    item.quantity +
+                    " = ₱" +
+                    subtotal;
+
+
+
+                itemInfo.appendChild(
+                    itemName
+                );
+
+
+                itemInfo.appendChild(
+                    itemPrice
+                );
+
+
+
+                // ==========================================
+                // QUANTITY CONTROLS
+                // ==========================================
+
+
+                const controls =
+                    document.createElement("div");
+
+
+                controls.classList.add(
+                    "quantity-controls"
+                );
+
+
+
+                // Minus button
+
+                const minusBtn =
+                    document.createElement("button");
+
+
+                minusBtn.classList.add(
+                    "minus-btn"
+                );
+
+
+                minusBtn.textContent =
+                    "−";
+
+
+
+                // Quantity
+
+                const quantity =
+                    document.createElement("span");
+
+
+                quantity.classList.add(
+                    "quantity"
+                );
+
+
+                quantity.textContent =
+                    item.quantity;
+
+
+
+                // Plus button
+
+                const plusBtn =
+                    document.createElement("button");
+
+
+                plusBtn.classList.add(
+                    "plus-btn"
+                );
+
+
+                plusBtn.textContent =
+                    "+";
+
+
+
+                // Delete button
+
+                const deleteBtn =
+                    document.createElement("button");
+
+
+                deleteBtn.classList.add(
+                    "delete-btn"
+                );
+
+
+                deleteBtn.textContent =
+                    "🗑️";
+
+
+
+                // Add buttons to controls
+
+                controls.appendChild(
+                    minusBtn
+                );
+
+
+                controls.appendChild(
+                    quantity
+                );
+
+
+                controls.appendChild(
+                    plusBtn
+                );
+
+
+                controls.appendChild(
+                    deleteBtn
+                );
+
+
+
+                // Add everything to order item
+
+                orderItem.appendChild(
+                    itemInfo
+                );
+
+
+                orderItem.appendChild(
+                    controls
+                );
+
+
+
+                // Add order item to list
+
+                orderList.appendChild(
+                    orderItem
+                );
+
+            });
+
+
+
+            // Update total
+
+            totalDisplay.textContent =
+                "₱" + total;
+
+        }
+
+
+
+        // ==================================================
+        // PILLAR 3 — EVENT HANDLING
+        // ==================================================
+        //
+        // addEventListener() allows the webpage
+        // to respond to user actions.
+        //
+
+
+
+        // Add food buttons
+
+        foodCards.forEach(function (card) {
+
+
+            const addButton =
+                card.querySelector(".add-btn");
+
+
+            addButton.addEventListener(
+                "click",
+                function () {
+
+
+                    const name =
+                        card.dataset.name;
+
+
+                    const price =
+                        Number(
+                            card.dataset.price
+                        );
+
+
+
+                    // If item already exists
+
+                    if (cart[name]) {
+
+                        cart[name].quantity++;
+
+                    }
+
+                    // Otherwise create new item
+
+                    else {
+
+                        cart[name] = {
+
+                            name: name,
+
+                            price: price,
+
+                            quantity: 1
+
+                        };
+
+                    }
+
+
+
+                    displayOrder();
+
+                }
+
+            );
+
+        });
+
+
+
+        // Clear Order button
+
+        clearBtn.addEventListener(
+            "click",
+            function () {
+
+
+                if (
+                    Object.keys(cart).length === 0
+                ) {
+
+                    alert(
+                        "Your order is already empty."
+                    );
+
+                    return;
+
+                }
+
+
+
+                cart = {};
+
+
+                displayOrder();
+
+            }
+        );
+
+
+
+        // Place Order button
+
+        placeBtn.addEventListener(
+            "click",
+            function () {
+
+
+                if (
+                    Object.keys(cart).length === 0
+                ) {
+
+                    alert(
+                        "Please add an item first!"
+                    );
+
+                    return;
+
+                }
+
+
+
+                let total = 0;
+
+
+                Object.values(cart).forEach(
+                    function (item) {
+
+                        total +=
+                            item.price *
+                            item.quantity;
+
+                    }
+                );
+
+
+
+                alert(
+                    "🎉 Thank you for ordering from BIG BITE RESTO!\n\n" +
+                    "Your total is ₱" +
+                    total +
+                    "\n\nYour order has been placed!"
+                );
+
+
+                cart = {};
+
+
+                displayOrder();
+
+            }
+        );
+
+
+
+        // ==================================================
+        // PILLAR 4 — TRAVERSAL / EVENT DELEGATION
+        // ==================================================
+        //
+        // Instead of creating separate event listeners
+        // for every +, -, and delete button,
+        // we use ONE event listener on orderList.
+        //
+        // closest() finds the order item containing
+        // the clicked button.
+        //
+
+
+
+        orderList.addEventListener(
+            "click",
+            function (event) {
+
+
+                // Find the closest order item
+
+                const orderItem =
+                    event.target.closest(
+                        ".order-item"
+                    );
+
+
+                // If there is no order item,
+                // stop the function.
+
+                if (!orderItem) {
+                    return;
+                }
+
+
+
+                // Get food name
+
+                const name =
+                    orderItem.dataset.name;
+
+
+
+                // ==========================================
+                // PLUS BUTTON
+                // ==========================================
+
+                if (
+                    event.target.classList.contains(
+                        "plus-btn"
+                    )
+                ) {
+
+                    cart[name].quantity++;
+
+                    displayOrder();
+
+                }
+
+
+
+                // ==========================================
+                // MINUS BUTTON
+                // ==========================================
+
+                if (
+                    event.target.classList.contains(
+                        "minus-btn"
+                    )
+                ) {
+
+                    cart[name].quantity--;
+
+
+                    if (
+                        cart[name].quantity <= 0
+                    ) {
+
+                        delete cart[name];
+
+                    }
+
+
+                    displayOrder();
+
+                }
+
+
+
+                // ==========================================
+                // DELETE BUTTON
+                // ==========================================
+
+                if (
+                    event.target.classList.contains(
+                        "delete-btn"
+                    )
+                ) {
+
+                    delete cart[name];
+
+
+                    displayOrder();
+
+                }
+
+            }
+        );
+
+
+
+    </script>
+
+</body>
+
+</html>
